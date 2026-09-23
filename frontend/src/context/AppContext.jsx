@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import api from "../services/api";
 
 const AppContext = createContext(null);
 
@@ -69,9 +70,9 @@ export function AppProvider({ children }) {
         return prev.map((item) =>
           item._id === product._id
             ? {
-                ...item,
-                quantity: item.quantity + quantity,
-              }
+              ...item,
+              quantity: item.quantity + quantity,
+            }
             : item
         );
       }
@@ -103,9 +104,9 @@ export function AppProvider({ children }) {
       prev.map((item) =>
         item._id === _id
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-            }
+            ...item,
+            quantity: item.quantity + 1,
+          }
           : item
       )
     );
@@ -118,9 +119,9 @@ export function AppProvider({ children }) {
         .map((item) =>
           item._id === _id && item.quantity > 1
             ? {
-                ...item,
-                quantity: item.quantity - 1,
-              }
+              ...item,
+              quantity: item.quantity - 1,
+            }
             : item
         )
         .filter((item) => item.quantity > 0)
@@ -168,32 +169,64 @@ export function AppProvider({ children }) {
 
   // AUTH FUNCTIONS
 
-  const loginUser = (user, remember = false) => {
-    setCurrentUser(user);
-    setIsLoggedIn(true);
+  const loginUser = async (email, password, remember = false) => {
+    try {
+      const { data } = await api.post("/auth/login", {
+        email,
+        password,
+      });
 
-    if (remember) {
-      localStorage.setItem(
-        "rememberUser",
-        user.email
-      );
-    } else {
-      localStorage.removeItem("rememberUser");
+      setCurrentUser({
+        _id: data._id,
+        name: data.name,
+        email: data.email,
+      });
+
+      setIsLoggedIn(true);
+
+      localStorage.setItem("token", data.token);
+
+      if (remember) {
+        localStorage.setItem("rememberUser", email);
+      } else {
+        localStorage.removeItem("rememberUser");
+      }
+
+      showToast(`Welcome back, ${data.name}`);
+
+      return {
+        success: true,
+      };
+
+    } catch (error) {
+
+      return {
+        success: false,
+        message:
+          error.response?.data?.message ||
+          "Login failed",
+      };
+
     }
-
-    showToast(`Welcome back, ${user.name}`);
   };
 
+  const updateCurrentUser = (updatedUser) => {
+    setCurrentUser((prev) => ({
+      ...prev,
+      ...updatedUser,
+    }));
+  };
 
   const logoutUser = () => {
     setCurrentUser(null);
     setIsLoggedIn(false);
 
+    localStorage.removeItem("token");
     localStorage.removeItem("rememberUser");
+    localStorage.removeItem("currentUser");
 
     showToast("Logged out successfully");
   };
-
 
   const value = useMemo(
     () => ({
@@ -231,7 +264,7 @@ export function AppProvider({ children }) {
 
       loginUser,
       logoutUser,
-
+      updateCurrentUser,
 
       isWishlisted: (_id) =>
         wishlist.some(

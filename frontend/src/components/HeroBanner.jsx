@@ -50,7 +50,7 @@ function HeroBanner() {
           <div className="relative">
 
             <img
-              src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=900"
+              src="../src/assets/shopping.jpg"
               alt="Shopping"
               className="rounded-3xl shadow-2xl w-full object-cover hover:scale-105 transition duration-500"
             />

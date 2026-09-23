@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useApp } from "../context/AppContext";
 
@@ -27,7 +27,7 @@ function Cart() {
 
   const [couponCode, setCouponCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(0);
-
+  const navigate = useNavigate();
 
   const subtotal = useMemo(() => {
     return cart.reduce((total, item) => {
@@ -68,7 +68,9 @@ function Cart() {
 
 
   const handleCheckout = () => {
-    alert("Checkout flow can be connected later.");
+    if (cart.length === 0) return;
+
+    navigate("/checkout");
   };
 
 
@@ -194,13 +196,9 @@ function Cart() {
 
                       </div>
 
-
-
                       <div className="flex-1">
 
-
                         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-
 
                           <div>
 
@@ -216,45 +214,32 @@ function Cart() {
 
                           </div>
 
-
-
                           <div className="text-left md:text-right">
 
                             <p className="text-2xl font-black text-indigo-600">
                               ₹{(item.price * (item.quantity || 1)).toLocaleString()}
                             </p>
 
-
                             <p className="text-sm text-slate-400">
                               ₹{item.price.toLocaleString()} each
                             </p>
 
-
                           </div>
-
 
                         </div>
 
-
-
-
                         <div className="mt-6 flex flex-wrap items-center gap-4">
 
-
-
                           <div className="flex items-center rounded-2xl border border-slate-200 bg-slate-50">
-
 
                             <button
                               onClick={() => decreaseQuantity(item._id)}
                               className="px-4 py-3 text-slate-700 transition hover:bg-slate-100"
                             >
 
-                              <Minus size={16}/>
+                              <Minus size={16} />
 
                             </button>
-
-
 
                             <span className="min-w-12 px-4 text-center font-bold text-slate-900">
                               {item.quantity || 1}
@@ -267,23 +252,19 @@ function Cart() {
                               className="px-4 py-3 text-slate-700 transition hover:bg-slate-100"
                             >
 
-                              <Plus size={16}/>
+                              <Plus size={16} />
 
                             </button>
 
 
                           </div>
 
-
-
-
-
                           <button
                             onClick={() => removeFromCart(item._id)}
                             className="inline-flex items-center gap-2 rounded-xl border border-rose-200 px-4 py-3 font-semibold text-rose-600 transition hover:bg-rose-50"
                           >
 
-                            <Trash2 size={16}/>
+                            <Trash2 size={16} />
 
                             Remove
 
@@ -309,18 +290,12 @@ function Cart() {
 
               </div>
 
-
-
-
-
               <div className="h-fit rounded-3xl border border-slate-200 bg-white p-6 shadow-lg lg:sticky lg:top-6">
 
 
                 <h2 className="text-2xl font-bold text-slate-900">
                   Order Summary
                 </h2>
-
-
 
                 <div className="mt-6 space-y-4">
 
@@ -335,8 +310,6 @@ function Cart() {
 
                   </div>
 
-
-
                   <div className="flex justify-between text-slate-600">
 
                     <span>Shipping</span>
@@ -347,8 +320,6 @@ function Cart() {
 
                   </div>
 
-
-
                   <div className="flex justify-between text-slate-600">
 
                     <span>Discount</span>
@@ -358,8 +329,6 @@ function Cart() {
                     </span>
 
                   </div>
-
-
 
                   <div className="border-t pt-4">
 
@@ -383,16 +352,12 @@ function Cart() {
 
                 </div>
 
-
-
-
-
                 <button
                   onClick={handleCheckout}
                   className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 py-4 font-semibold text-white transition hover:bg-indigo-700"
                 >
 
-                  <CreditCard size={18}/>
+                  <CreditCard size={18} />
 
                   Proceed to Checkout
 
