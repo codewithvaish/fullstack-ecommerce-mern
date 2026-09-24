@@ -27,8 +27,7 @@ function Shop() {
       setLoading(true);
 
       const response = await axios.get(
-        "http://localhost:5000/api/products"
-      );
+        "https://fullstack-ecommerce-mern.onrender.com/api/products");
 
       setProducts(response.data);
     } catch (error) {
@@ -129,11 +128,10 @@ function Shop() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`rounded-full px-6 py-3 font-semibold capitalize transition-all duration-300 ${
-                  selectedCategory === category
+                className={`rounded-full px-6 py-3 font-semibold capitalize transition-all duration-300 ${selectedCategory === category
                     ? "bg-indigo-600 text-white shadow-lg"
                     : "border border-gray-200 bg-white hover:bg-indigo-50"
-                }`}
+                  }`}
               >
                 {category}
               </button>

@@ -38,8 +38,7 @@ function ProductDetails() {
       setError("");
 
       const response = await axios.get(
-        `http://localhost:5000/api/products/${id}`
-      );
+        `https://fullstack-ecommerce-mern.onrender.com/api/products/${id}`);
 
       setProduct(response.data);
     } catch (err) {
@@ -221,11 +220,10 @@ function ProductDetails() {
 
                 <button
                   onClick={() => toggleWishlist(product)}
-                  className={`flex items-center justify-center gap-2 rounded-xl border px-6 py-4 font-semibold transition ${
-                    wishlisted
+                  className={`flex items-center justify-center gap-2 rounded-xl border px-6 py-4 font-semibold transition ${wishlisted
                       ? "border-rose-500 bg-rose-50 text-rose-600"
                       : "border-indigo-600 text-indigo-600 hover:bg-indigo-50"
-                  }`}
+                    }`}
                 >
                   <Heart
                     size={18}
