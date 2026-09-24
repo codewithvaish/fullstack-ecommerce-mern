@@ -1,5 +1,6 @@
 import { ArrowRight, Star, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
+import shoppingImage from "../assets/shopping.jpg";
 
 function HeroBanner() {
   return (
@@ -40,7 +41,7 @@ function HeroBanner() {
                 <ArrowRight size={18} />
               </Link>
 
-              
+
             </div>
 
           </div>
@@ -50,11 +51,10 @@ function HeroBanner() {
           <div className="relative">
 
             <img
-              src="../src/assets/shopping.jpg"
+              src={shoppingImage}
               alt="Shopping"
               className="rounded-3xl shadow-2xl w-full object-cover hover:scale-105 transition duration-500"
             />
-
           </div>
 
         </div>
