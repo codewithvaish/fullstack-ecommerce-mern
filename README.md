@@ -1,6 +1,6 @@
 # MERN E-Commerce Platform
 
-A full-stack e-commerce web application built with the MERN stack. The application provides a complete shopping experience with authentication, product browsing, cart and wishlist management, checkout, and order tracking.
+A full-stack e-commerce web application built with the MERN stack. The application provides a complete shopping experience with authentication, product browsing, cart and wishlist management, checkout, and order history.
 
 ## Live Demo
 
