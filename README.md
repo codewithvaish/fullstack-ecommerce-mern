@@ -18,6 +18,23 @@ A full-stack e-commerce web application built with the MERN stack. The applicati
 - Toast notifications and user-friendly alerts
 - REST API integration between the React frontend and Express backend
 
+## Screenshots
+
+### Home Page
+![Home Page](home.png)
+
+### Products
+![Products](products.png)
+
+### Product Details
+![Product Details](product-details.png)
+
+### Shopping Cart
+![Shopping Cart](cart.png)
+
+### Checkout
+![Checkout](checkout.png)
+
 ## Features
 
 - User registration and login with JWT authentication
